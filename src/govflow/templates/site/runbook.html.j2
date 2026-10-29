@@ -1,0 +1,46 @@
+{% extends "site/base.html.j2" %}
+{% import "site/_macros.html.j2" as ui %}
+{% set policy = compiled.policy %}
+{% block content %}
+<p class="crumbs"><a href="../policies.html">Policies</a> / {{ policy.id }}</p>
+<section class="hero">
+  <p class="eyebrow">Runbook {{ policy.id }} &middot; {{ ui.severity(policy.severity.value) }}</p>
+  <h1>{{ policy.title }}</h1>
+  <p class="lede">{{ policy.rationale }}</p>
+</section>
+
+<div class="grid-2">
+  <section class="panel">
+    <h2>How to fix it</h2>
+    <ol class="steps">
+      {% for step in policy.remediation.steps %}
+      <li>{{ step }}</li>
+      {% endfor %}
+    </ol>
+    {% if policy.remediation.action %}
+    <p class="note">govflow can automate this with <code>{{ policy.remediation.action }}</code>{% if policy.remediation.params.path %}, adding <code>{{ policy.remediation.params.path }}</code> through a pull request{% endif %}. It only runs for allowlisted targets, after an approval bound to the plan digest.</p>
+    {% endif %}
+  </section>
+  <section class="panel">
+    <h2>Failing in this run</h2>
+    {% if affected %}
+    <ul>
+      {% for finding in affected %}
+      <li><a href="../resources/{{ slugs[finding.resource_id] }}.html">{{ finding.resource_name }}</a></li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p class="ok">No resource fails this policy in this run.</p>
+    {% endif %}
+    <h3>References</h3>
+    <ul class="plain">
+      {% for reference in policy.references %}
+      <li>{% if reference.url %}<a href="{{ reference.url }}" rel="noopener noreferrer">{{ reference.framework }}: {{ reference.control }}</a>{% else %}{{ reference.framework }}: {{ reference.control }}{% endif %}</li>
+      {% else %}
+      <li>None listed.</li>
+      {% endfor %}
+    </ul>
+    <p class="muted">Source: <code>{{ compiled.source }}</code></p>
+  </section>
+</div>
+{% endblock %}

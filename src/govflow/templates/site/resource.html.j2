@@ -1,0 +1,58 @@
+{% extends "site/base.html.j2" %}
+{% import "site/_macros.html.j2" as ui %}
+{% block content %}
+<p class="crumbs"><a href="../index.html">Overview</a> / {{ view.resource.name }}</p>
+<section class="hero">
+  <p class="eyebrow">{{ view.resource.provider }} resource</p>
+  <h1>{{ view.resource.name }}</h1>
+  <dl class="meta">
+    <div><dt>Type</dt><dd><code>{{ view.resource.type }}</code></dd></div>
+    <div><dt>Source</dt><dd>{{ view.resource.source }}</dd></div>
+    <div><dt>Score</dt><dd>{% if view.score is none %}n/a{% else %}{{ view.score }}%{% endif %}</dd></div>
+    {% if view.resource.url %}
+    <div><dt>Link</dt><dd><a href="{{ view.resource.url }}" rel="noopener noreferrer">Open in provider</a></dd></div>
+    {% endif %}
+  </dl>
+</section>
+
+{% if view.resource.unavailable %}
+<section class="panel panel-warn">
+  <h2>Data that could not be collected</h2>
+  <ul>
+    {% for path, reason in view.resource.unavailable|dictsort %}
+    <li><code>{{ path }}</code>: {{ reason }}</li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+
+<section class="panel">
+  <h2>Checks</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th scope="col">Status</th><th scope="col">Severity</th><th scope="col">Policy</th><th scope="col">Evidence</th></tr>
+      </thead>
+      <tbody>
+        {% for finding in view.findings %}
+        <tr>
+          <td>{{ ui.status(finding.status.value) }}</td>
+          <td>{{ ui.severity(finding.severity.value) }}</td>
+          <td>
+            <a href="../runbooks/{{ finding.policy_id|lower }}.html"><strong>{{ finding.policy_id }}</strong></a> {{ finding.policy_title }}
+            <p class="muted">{{ finding.detail }}</p>
+          </td>
+          <td>
+            <dl class="evidence">
+              {% for path, item in finding.evidence|dictsort %}
+              <div><dt><code>{{ path }}</code></dt><dd>{{ ui.value(item) }}</dd></div>
+              {% endfor %}
+            </dl>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

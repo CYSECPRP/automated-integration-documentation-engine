@@ -1,0 +1,11 @@
+{% macro status(value) -%}
+<span class="pill pill-{{ value }}">{{ {"pass": "Pass", "fail": "Fail", "not_assessed": "Not assessed"}[value] }}</span>
+{%- endmacro %}
+
+{% macro severity(value) -%}
+<span class="sev sev-{{ value }}">{{ value }}</span>
+{%- endmacro %}
+
+{% macro value(item) -%}
+{% if item is string %}{{ item }}{% else %}<code>{{ item|tojson }}</code>{% endif %}
+{%- endmacro %}

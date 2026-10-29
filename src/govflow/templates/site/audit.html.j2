@@ -1,0 +1,39 @@
+{% extends "site/base.html.j2" %}
+{% block content %}
+<section class="hero">
+  <p class="eyebrow">Tamper-evident audit trail</p>
+  <h1>Audit log</h1>
+  <p class="lede">Each event stores the SHA-256 hash of the event before it. Changing, removing or reordering any line breaks the chain.</p>
+  {% if verification.ok %}
+  <p class="banner banner-ok">Chain verified: {{ verification.count }} events, head <code>{{ verification.head|short }}</code>.</p>
+  {% else %}
+  <p class="banner banner-bad">Verification failed: {{ verification.error }}</p>
+  {% endif %}
+  <dl class="meta">
+    <div><dt>Genesis</dt><dd><code title="{{ verification.genesis }}">{{ verification.genesis|short }}</code></dd></div>
+    <div><dt>Head</dt><dd><code title="{{ verification.head }}">{{ verification.head|short }}</code></dd></div>
+  </dl>
+</section>
+
+<section class="panel">
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th scope="col">#</th><th scope="col">Time</th><th scope="col">Actor</th><th scope="col">Event</th><th scope="col">Details</th><th scope="col">Hash</th></tr>
+      </thead>
+      <tbody>
+        {% for event in events %}
+        <tr>
+          <td>{{ event.seq }}</td>
+          <td>{{ event.ts }}</td>
+          <td>{{ event.actor }}</td>
+          <td><code>{{ event.event }}</code></td>
+          <td><code class="wrap-anywhere">{{ event.data|tojson }}</code></td>
+          <td><code title="{{ event.hash }}">{{ event.hash|short }}</code></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

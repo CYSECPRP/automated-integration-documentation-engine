@@ -1,0 +1,125 @@
+{% extends "site/base.html.j2" %}
+{% import "site/_macros.html.j2" as ui %}
+{% block content %}
+<section class="hero">
+  <p class="eyebrow">Governance report</p>
+  <h1>{{ info.name }}</h1>
+  <p class="lede">{{ report.summary.resources }} resources from {{ info.targets|length }} targets were checked against {{ report.summary.policies }} policies in run <code>{{ info.run_id }}</code>, requested by {{ info.actor }}.</p>
+  <dl class="meta">
+    <div><dt>Started</dt><dd>{{ info.started_at|ts }}</dd></div>
+    <div><dt>Engine</dt><dd>govflow {{ info.engine_version }}</dd></div>
+    <div><dt>Plan digest</dt><dd><code title="{{ plan.digest }}">{{ plan.digest|short }}</code></dd></div>
+    <div><dt>Audit head</dt><dd><code title="{{ verification.head }}">{{ verification.head|short }}</code></dd></div>
+  </dl>
+</section>
+
+<section class="cards" aria-label="Summary">
+  <article class="card card-accent">
+    <h2 class="card-label">Compliance</h2>
+    <p class="card-value">{% if report.summary.compliance_score is none %}n/a{% else %}{{ report.summary.compliance_score }}%{% endif %}</p>
+    <p class="card-note">of assessed checks passed</p>
+  </article>
+  <article class="card card-fail">
+    <h2 class="card-label">Failed</h2>
+    <p class="card-value">{{ report.summary.findings.fail }}</p>
+    <p class="card-note">checks need attention</p>
+  </article>
+  <article class="card card-pass">
+    <h2 class="card-label">Passed</h2>
+    <p class="card-value">{{ report.summary.findings.pass }}</p>
+    <p class="card-note">checks met their policy</p>
+  </article>
+  <article class="card card-na">
+    <h2 class="card-label">Not assessed</h2>
+    <p class="card-value">{{ report.summary.findings.not_assessed }}</p>
+    <p class="card-note">data was unavailable</p>
+  </article>
+  <article class="card {{ 'card-pass' if verification.ok else 'card-fail' }}">
+    <h2 class="card-label">Audit chain</h2>
+    <p class="card-value">{{ "Verified" if verification.ok else "Broken" }}</p>
+    <p class="card-note">{{ verification.count }} hash-linked events</p>
+  </article>
+</section>
+
+{% if info.collection_errors %}
+<section class="panel panel-warn">
+  <h2>Collection errors</h2>
+  <ul>
+    {% for error in info.collection_errors %}
+    <li>{{ error }}</li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+
+<div class="grid-2">
+  <section class="panel">
+    <h2>Failed checks by severity</h2>
+    <ul class="severity-list">
+      {% for name, count in severity_rows %}
+      <li><span>{{ ui.severity(name) }}</span><strong>{{ count }}</strong></li>
+      {% endfor %}
+    </ul>
+  </section>
+  <section class="panel">
+    <h2>Remediation plan</h2>
+    <p>{{ plan.actions|length }} planned actions: {{ plan.executable|length }} allowed by governance, {{ plan.actions|length - plan.executable|length }} blocked.</p>
+    {% if approval %}
+    <p class="ok">Approved by {{ approval.approver }} on {{ approval.approved_at|ts }} for digest <code>{{ approval.plan_digest|short }}</code>.</p>
+    {% elif plan.executable %}
+    <p class="warn">Awaiting approval. Nothing changes until an approver signs off on this exact plan digest.</p>
+    {% else %}
+    <p>No executable actions, so no approval is needed.</p>
+    {% endif %}
+    <p><a href="changes.html">Review the plan and change records</a></p>
+  </section>
+</div>
+
+<section class="panel">
+  <h2>Resources</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th scope="col">Resource</th><th scope="col">Type</th><th scope="col">Pass</th><th scope="col">Fail</th><th scope="col">Not assessed</th><th scope="col">Score</th></tr>
+      </thead>
+      <tbody>
+        {% for view in views %}
+        <tr>
+          <th scope="row"><a href="resources/{{ view.slug }}.html">{{ view.resource.name }}</a></th>
+          <td><code>{{ view.resource.type }}</code></td>
+          <td>{{ view.counts.pass }}</td>
+          <td>{{ view.counts.fail }}</td>
+          <td>{{ view.counts.not_assessed }}</td>
+          <td>{% if view.score is none %}n/a{% else %}{{ view.score }}%{% endif %}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="panel">
+  <h2>Failed checks</h2>
+  {% if failing %}
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th scope="col">Severity</th><th scope="col">Policy</th><th scope="col">Resource</th><th scope="col">Runbook</th></tr>
+      </thead>
+      <tbody>
+        {% for finding in failing %}
+        <tr>
+          <td>{{ ui.severity(finding.severity.value) }}</td>
+          <td><strong>{{ finding.policy_id }}</strong> {{ finding.policy_title }}</td>
+          <td><a href="resources/{{ slugs[finding.resource_id] }}.html">{{ finding.resource_name }}</a></td>
+          <td><a href="runbooks/{{ finding.policy_id|lower }}.html">Fix it</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <p class="ok">Every assessed check passed.</p>
+  {% endif %}
+</section>
+{% endblock %}

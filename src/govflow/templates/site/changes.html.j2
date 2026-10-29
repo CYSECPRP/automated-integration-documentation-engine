@@ -1,0 +1,68 @@
+{% extends "site/base.html.j2" %}
+{% block content %}
+<section class="hero">
+  <p class="eyebrow">Governed changes</p>
+  <h1>Plan, approval and change records</h1>
+  <p class="lede">Remediation is planned from failed checks, filtered by the governance allowlists and only executed after an approval that names the exact plan digest.</p>
+  <dl class="meta">
+    <div><dt>Plan digest</dt><dd><code>{{ plan.digest }}</code></dd></div>
+    <div><dt>Approval</dt><dd>{% if approval %}<span class="ok">{{ approval.approver }}</span> on {{ approval.approved_at|ts }}{% elif plan.executable %}<span class="warn">pending</span>{% else %}not required{% endif %}</dd></div>
+  </dl>
+  {% if approval and approval.comment %}
+  <blockquote>{{ approval.comment }}</blockquote>
+  {% endif %}
+</section>
+
+<section class="panel">
+  <h2>Planned actions</h2>
+  {% if plan.actions %}
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th scope="col">ID</th><th scope="col">Action</th><th scope="col">Target</th><th scope="col">Policy</th><th scope="col">Governance</th></tr>
+      </thead>
+      <tbody>
+        {% for action in plan.actions %}
+        <tr>
+          <td><code>{{ action.id }}</code></td>
+          <td><code>{{ action.action }}</code>{% if action.params.path %} <code>{{ action.params.path }}</code>{% endif %}</td>
+          <td>{{ action.target }}</td>
+          <td>{% if action.policy_id in policy_ids %}<a href="runbooks/{{ action.policy_id|lower }}.html">{{ action.policy_id }}</a>{% else %}{{ action.policy_id }}{% endif %}</td>
+          <td>{% if action.allowed %}<span class="pill pill-pass">Allowed</span>{% else %}<span class="pill pill-fail">Blocked</span> <span class="muted">{{ action.blocked_reason }}</span>{% endif %}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <p>No remediation actions were planned in this run.</p>
+  {% endif %}
+</section>
+
+<section class="panel">
+  <h2>Change records</h2>
+  {% if changes %}
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th scope="col">Record</th><th scope="col">Action</th><th scope="col">Status</th><th scope="col">Result</th><th scope="col">Approver</th><th scope="col">Recorded</th></tr>
+      </thead>
+      <tbody>
+        {% for change in changes %}
+        <tr>
+          <td><code>{{ change.id }}</code></td>
+          <td><code>{{ change.action.id }}</code></td>
+          <td><span class="pill pill-change-{{ change.status }}">{{ change.status }}</span></td>
+          <td>{{ change.result }}</td>
+          <td>{{ change.approver or "-" }}</td>
+          <td>{{ change.recorded_at|ts }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <p>No change records yet. Records appear after a dry run or an approved apply.</p>
+  {% endif %}
+</section>
+{% endblock %}

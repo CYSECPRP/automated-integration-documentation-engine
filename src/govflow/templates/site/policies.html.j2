@@ -1,0 +1,39 @@
+{% extends "site/base.html.j2" %}
+{% import "site/_macros.html.j2" as ui %}
+{% block content %}
+<section class="hero">
+  <p class="eyebrow">Policy catalog</p>
+  <h1>{{ policies|length }} policies as code</h1>
+  <p class="lede">Each policy is a YAML file with a declarative check, a rationale, step-by-step remediation and references to recognised frameworks. Checks never execute code.</p>
+</section>
+
+<section class="panel">
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th scope="col">Policy</th><th scope="col">Severity</th><th scope="col">Applies to</th><th scope="col">References</th></tr>
+      </thead>
+      <tbody>
+        {% for compiled in policies %}
+        {% set policy = compiled.policy %}
+        <tr id="{{ policy.id|lower }}">
+          <td>
+            <a href="runbooks/{{ policy.id|lower }}.html"><strong>{{ policy.id }}</strong></a> {{ policy.title }}
+            <p class="muted">{{ policy.rationale }}</p>
+          </td>
+          <td>{{ ui.severity(policy.severity.value) }}</td>
+          <td><code>{{ policy.resource }}</code></td>
+          <td>
+            <ul class="plain">
+              {% for reference in policy.references %}
+              <li>{% if reference.url %}<a href="{{ reference.url }}" rel="noopener noreferrer">{{ reference.framework }}: {{ reference.control }}</a>{% else %}{{ reference.framework }}: {{ reference.control }}{% endif %}</li>
+              {% endfor %}
+            </ul>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}
