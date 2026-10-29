@@ -1,0 +1,19 @@
+id: GH-005
+title: Repository declares a license
+resource: github.repository
+severity: low
+rationale: >-
+  A license states how the code may be used. Without one, reuse is legally unclear for
+  everyone, including the organisation that owns it.
+check:
+  path: license
+  op: exists
+remediation:
+  steps:
+    - Choose a license that matches how the code may be used, for example MIT or a proprietary notice.
+    - Add it as LICENSE in the repository root so GitHub detects it.
+references:
+  - framework: OpenSSF Scorecard
+    control: License
+    url: https://github.com/ossf/scorecard/blob/main/docs/checks.md#license
+tags: [legal]

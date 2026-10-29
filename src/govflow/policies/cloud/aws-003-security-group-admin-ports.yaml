@@ -1,0 +1,44 @@
+id: AWS-003
+title: Security group does not expose SSH or RDP to the internet
+resource: aws.ec2.security_group
+severity: critical
+rationale: >-
+  Remote administration ports open to 0.0.0.0/0 are scanned and brute-forced
+  continuously. Administrative access should come through a bastion, VPN or
+  Systems Manager Session Manager instead.
+check:
+  no_item:
+    path: ingress
+    where:
+      all:
+        - path: cidr
+          op: in
+          value: ["0.0.0.0/0", "::/0"]
+        - path: protocol
+          op: in
+          value: ["tcp", "-1"]
+        - any:
+            - all:
+                - path: from_port
+                  op: lte
+                  value: 22
+                - path: to_port
+                  op: gte
+                  value: 22
+            - all:
+                - path: from_port
+                  op: lte
+                  value: 3389
+                - path: to_port
+                  op: gte
+                  value: 3389
+remediation:
+  steps:
+    - Remove the inbound rules that allow port 22 or 3389 from 0.0.0.0/0 or ::/0.
+    - Use Systems Manager Session Manager or a VPN for administrative access.
+    - If direct access is unavoidable, restrict the source to known administrator IP ranges.
+references:
+  - framework: CIS Amazon Web Services Foundations Benchmark
+    control: Networking section
+    url: https://www.cisecurity.org/benchmark/amazon_web_services
+tags: [network-exposure]

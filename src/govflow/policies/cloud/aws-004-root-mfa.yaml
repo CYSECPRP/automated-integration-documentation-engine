@@ -1,0 +1,21 @@
+id: AWS-004
+title: Root user has MFA enabled
+resource: aws.iam.account
+severity: critical
+rationale: >-
+  The root user can do anything in the account, including closing it. Multi-factor
+  authentication keeps a stolen password from being enough to take over the account.
+check:
+  path: AccountMFAEnabled
+  op: eq
+  value: 1
+remediation:
+  steps:
+    - Sign in as the root user and open Security credentials.
+    - Assign a hardware or virtual MFA device to the root user.
+    - Store root credentials in a break-glass process and avoid using root for daily work.
+references:
+  - framework: CIS Amazon Web Services Foundations Benchmark
+    control: Identity and Access Management section
+    url: https://www.cisecurity.org/benchmark/amazon_web_services
+tags: [identity]

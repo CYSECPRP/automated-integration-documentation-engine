@@ -1,0 +1,20 @@
+id: GH-007
+title: Workflows declare least-privilege token permissions
+resource: github.repository
+severity: medium
+rationale: >-
+  Workflows that do not declare permissions inherit the repository default, which can be
+  read-write. Declaring permissions limits what a compromised step can do with the token.
+check:
+  path: workflows.missing_permissions_count
+  op: eq
+  value: 0
+remediation:
+  steps:
+    - 'Add a top-level "permissions:" block to every workflow, starting from "contents: read".'
+    - Grant write scopes only on the jobs that need them.
+references:
+  - framework: OpenSSF Scorecard
+    control: Token-Permissions
+    url: https://github.com/ossf/scorecard/blob/main/docs/checks.md#token-permissions
+tags: [ci, least-privilege]

@@ -1,0 +1,26 @@
+id: GH-003
+title: Dependency updates are automated
+resource: github.repository
+severity: medium
+rationale: >-
+  Outdated dependencies are a common route for known vulnerabilities. A Dependabot
+  configuration keeps dependencies and pinned GitHub Actions current with reviewable pull
+  requests.
+check:
+  path: files.dependabot_config
+  op: eq
+  value: true
+remediation:
+  steps:
+    - Add .github/dependabot.yml with an update entry for every package ecosystem in the repository.
+    - Include the github-actions ecosystem so pinned workflow actions stay current.
+    - Review and merge the update pull requests regularly.
+  action: github.add_file
+  params:
+    path: .github/dependabot.yml
+    template: dependabot_github_actions
+references:
+  - framework: OpenSSF Scorecard
+    control: Dependency-Update-Tool
+    url: https://github.com/ossf/scorecard/blob/main/docs/checks.md#dependency-update-tool
+tags: [supply-chain, patching]

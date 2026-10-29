@@ -1,0 +1,31 @@
+id: AWS-001
+title: S3 bucket blocks all public access
+resource: aws.s3.bucket
+severity: high
+rationale: >-
+  S3 Block Public Access overrides ACLs and bucket policies that would make data public,
+  which is one of the most common causes of cloud data exposure.
+check:
+  all:
+    - path: public_access_block.BlockPublicAcls
+      op: eq
+      value: true
+    - path: public_access_block.IgnorePublicAcls
+      op: eq
+      value: true
+    - path: public_access_block.BlockPublicPolicy
+      op: eq
+      value: true
+    - path: public_access_block.RestrictPublicBuckets
+      op: eq
+      value: true
+remediation:
+  steps:
+    - Confirm the bucket does not need to serve public content; use CloudFront with origin access control if it does.
+    - Run "aws s3api put-public-access-block" with all four settings set to true.
+    - Prefer enabling Block Public Access at the account level as well.
+references:
+  - framework: CIS Amazon Web Services Foundations Benchmark
+    control: Storage section (Amazon S3)
+    url: https://www.cisecurity.org/benchmark/amazon_web_services
+tags: [data-exposure]

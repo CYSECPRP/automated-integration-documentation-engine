@@ -1,0 +1,47 @@
+id: GCP-003
+title: Firewall rule does not expose SSH or RDP to the internet
+resource: gcp.compute.firewall
+severity: critical
+rationale: >-
+  Ingress rules that allow ports 22 or 3389 from 0.0.0.0/0 invite continuous brute-force
+  attempts. Identity-Aware Proxy TCP forwarding provides administrative access without
+  opening these ports.
+check:
+  any:
+    - path: disabled
+      op: eq
+      value: true
+    - no_item:
+        path: ingress
+        where:
+          all:
+            - path: cidr
+              op: in
+              value: ["0.0.0.0/0", "::/0"]
+            - path: protocol
+              op: in
+              value: ["tcp", "all"]
+            - any:
+                - all:
+                    - path: from_port
+                      op: lte
+                      value: 22
+                    - path: to_port
+                      op: gte
+                      value: 22
+                - all:
+                    - path: from_port
+                      op: lte
+                      value: 3389
+                    - path: to_port
+                      op: gte
+                      value: 3389
+remediation:
+  steps:
+    - Delete or narrow the rule so ports 22 and 3389 are not open to 0.0.0.0/0.
+    - Use Identity-Aware Proxy TCP forwarding (source range 35.235.240.0/20) for administration.
+references:
+  - framework: CIS Google Cloud Platform Foundation Benchmark
+    control: Networking section
+    url: https://www.cisecurity.org/benchmark/google_cloud_computing_platform
+tags: [network-exposure]

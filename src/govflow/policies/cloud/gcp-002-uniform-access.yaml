@@ -1,0 +1,20 @@
+id: GCP-002
+title: Uniform bucket-level access is enabled
+resource: gcp.storage.bucket
+severity: medium
+rationale: >-
+  Uniform bucket-level access disables per-object ACLs so access is governed only by IAM,
+  which is auditable and consistent.
+check:
+  path: uniform_bucket_level_access
+  op: eq
+  value: true
+remediation:
+  steps:
+    - Run "gcloud storage buckets update gs://BUCKET --uniform-bucket-level-access".
+    - Recreate any object-level grants as bucket-level IAM bindings first.
+references:
+  - framework: CIS Google Cloud Platform Foundation Benchmark
+    control: Storage section
+    url: https://www.cisecurity.org/benchmark/google_cloud_computing_platform
+tags: [access-control]

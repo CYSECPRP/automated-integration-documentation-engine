@@ -1,0 +1,30 @@
+id: GH-001
+title: Default branch is protected against deletion and force pushes
+resource: github.repository
+severity: high
+rationale: >-
+  Without protection, anyone with write access can delete or rewrite the history that
+  releases and deployments are built from. A ruleset that blocks deletion and
+  non-fast-forward pushes, or classic branch protection, prevents this.
+check:
+  any:
+    - all:
+        - path: branch_protection.rules
+          op: contains
+          value: deletion
+        - path: branch_protection.rules
+          op: contains
+          value: non_fast_forward
+    - path: branch_protection.protected
+      op: eq
+      value: true
+remediation:
+  steps:
+    - Open Settings > Rules > Rulesets and create a branch ruleset that targets the default branch.
+    - Enable "Restrict deletions" and "Block force pushes" and leave the bypass list empty.
+    - Re-run govflow to confirm the check passes.
+references:
+  - framework: OpenSSF Scorecard
+    control: Branch-Protection
+    url: https://github.com/ossf/scorecard/blob/main/docs/checks.md#branch-protection
+tags: [supply-chain, integrity]

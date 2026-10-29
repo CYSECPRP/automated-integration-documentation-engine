@@ -1,0 +1,20 @@
+id: GH-010
+title: Default GitHub Actions token is read-only
+resource: github.repository
+severity: medium
+rationale: >-
+  When the repository default is read-only, any workflow that needs write access must ask
+  for it explicitly, which keeps privileges visible and reviewable.
+check:
+  path: actions.default_workflow_permissions
+  op: eq
+  value: read
+remediation:
+  steps:
+    - Open Settings > Actions > General > Workflow permissions.
+    - Select "Read repository contents and packages permissions" and save.
+references:
+  - framework: OpenSSF Scorecard
+    control: Token-Permissions
+    url: https://github.com/ossf/scorecard/blob/main/docs/checks.md#token-permissions
+tags: [ci, least-privilege]

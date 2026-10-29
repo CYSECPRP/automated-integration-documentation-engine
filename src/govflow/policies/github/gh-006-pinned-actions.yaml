@@ -1,0 +1,21 @@
+id: GH-006
+title: Workflow actions are pinned to full commit SHAs
+resource: github.repository
+severity: high
+rationale: >-
+  Tags such as @v4 can be moved to point at different code. Pinning third-party actions to
+  a full commit SHA ensures workflows run exactly the code that was reviewed.
+check:
+  path: workflows.unpinned_count
+  op: eq
+  value: 0
+remediation:
+  steps:
+    - 'Replace every "uses: owner/action@tag" with the full 40-character commit SHA of that tag.'
+    - 'Keep the tag as a trailing comment, for example "@<sha> # v5.0.0", so updates stay readable.'
+    - Let Dependabot propose SHA updates for the github-actions ecosystem.
+references:
+  - framework: OpenSSF Scorecard
+    control: Pinned-Dependencies
+    url: https://github.com/ossf/scorecard/blob/main/docs/checks.md#pinned-dependencies
+tags: [supply-chain, ci]

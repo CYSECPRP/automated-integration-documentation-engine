@@ -1,0 +1,19 @@
+id: AWS-002
+title: S3 bucket versioning is enabled
+resource: aws.s3.bucket
+severity: medium
+rationale: >-
+  Versioning keeps prior object versions so data can be recovered after accidental
+  deletion, overwrites or ransomware-style tampering.
+check:
+  path: versioning.Status
+  op: eq
+  value: Enabled
+remediation:
+  steps:
+    - Run "aws s3api put-bucket-versioning" with "Status=Enabled".
+    - Add lifecycle rules to expire old versions so storage costs stay predictable.
+references:
+  - framework: AWS Security Hub
+    control: S3 general purpose buckets should have versioning enabled
+tags: [resilience]

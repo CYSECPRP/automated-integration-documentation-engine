@@ -1,0 +1,24 @@
+id: GH-004
+title: Code owners are defined
+resource: github.repository
+severity: low
+rationale: >-
+  A CODEOWNERS file makes accountability explicit and, combined with required reviews,
+  ensures the right people review changes to sensitive paths.
+check:
+  path: files.codeowners
+  op: eq
+  value: true
+remediation:
+  steps:
+    - Add a CODEOWNERS file in the repository root, .github/ or docs/.
+    - Assign owners for the whole repository and for sensitive paths such as workflows.
+    - Optionally require review from code owners in the branch ruleset.
+  action: github.add_file
+  params:
+    path: .github/CODEOWNERS
+    template: codeowners
+references:
+  - framework: GitHub Docs
+    control: About code owners
+tags: [accountability]

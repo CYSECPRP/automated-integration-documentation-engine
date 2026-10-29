@@ -1,0 +1,24 @@
+id: GCP-001
+title: Cloud Storage bucket is not publicly accessible
+resource: gcp.storage.bucket
+severity: high
+rationale: >-
+  Granting allUsers or allAuthenticatedUsers access exposes bucket contents to anyone on
+  the internet or to any Google account.
+check:
+  all:
+    - path: public_principals
+      op: not_contains
+      value: allUsers
+    - path: public_principals
+      op: not_contains
+      value: allAuthenticatedUsers
+remediation:
+  steps:
+    - Remove allUsers and allAuthenticatedUsers from the bucket IAM policy.
+    - Enforce public access prevention on the bucket or with the organisation policy constraint.
+references:
+  - framework: CIS Google Cloud Platform Foundation Benchmark
+    control: Storage section
+    url: https://www.cisecurity.org/benchmark/google_cloud_computing_platform
+tags: [data-exposure]

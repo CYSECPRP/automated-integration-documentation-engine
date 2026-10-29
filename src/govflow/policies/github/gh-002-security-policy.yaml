@@ -1,0 +1,25 @@
+id: GH-002
+title: Repository publishes a security policy
+resource: github.repository
+severity: medium
+rationale: >-
+  A SECURITY.md tells researchers how to report vulnerabilities privately, so problems
+  reach the maintainers before they are disclosed publicly.
+check:
+  path: files.security_policy
+  op: eq
+  value: true
+remediation:
+  steps:
+    - Add SECURITY.md to the repository root, .github/ or docs/.
+    - Explain how to report a vulnerability privately and how quickly reports are acknowledged.
+    - Enable private vulnerability reporting under Settings > Advanced Security.
+  action: github.add_file
+  params:
+    path: SECURITY.md
+    template: security_md
+references:
+  - framework: OpenSSF Scorecard
+    control: Security-Policy
+    url: https://github.com/ossf/scorecard/blob/main/docs/checks.md#security-policy
+tags: [disclosure]
