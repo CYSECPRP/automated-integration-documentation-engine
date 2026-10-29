@@ -1,0 +1,21 @@
+version: 1
+name: CYSECPRP public repositories
+targets:
+  github:
+    repositories:
+      - CYSECPRP/automated-integration-documentation-engine
+      - CYSECPRP/cysecprp.github.io
+governance:
+  # Solo maintainer: the human approval happens in the protected "remediation" environment.
+  separation_of_duties: false
+  allowed_actions:
+    - github.add_file
+  allowed_targets:
+    - github:CYSECPRP/automated-integration-documentation-engine
+docs:
+  title: CYSECPRP governance report
+  links:
+    - label: Offline demo
+      href: demo/index.html
+    - label: Source
+      href: https://github.com/CYSECPRP/automated-integration-documentation-engine
