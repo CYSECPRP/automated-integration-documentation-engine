@@ -1,0 +1,20 @@
+version: 1
+name: acme-demo estate (offline demo)
+targets:
+  github:
+    repositories:
+      - acme-demo/payments-api
+      - acme-demo/docs-site
+      - acme-demo/legacy-tools
+governance:
+  separation_of_duties: true
+  allowed_actions:
+    - github.add_file
+  allowed_targets:
+    - github:acme-demo/payments-api
+  fail_on: high
+docs:
+  title: acme-demo governance report
+  links:
+    - label: Source
+      href: https://github.com/CYSECPRP/automated-integration-documentation-engine

@@ -1,0 +1,40 @@
+{
+  "format": "govflow-snapshot/v1",
+  "provider": "gcp",
+  "scope": "acme-demo-prod",
+  "collected_at": "2026-10-20T09:05:00Z",
+  "resources": [
+    {
+      "type": "gcp.storage.bucket",
+      "id": "acme-demo-exports",
+      "name": "acme-demo-exports",
+      "attributes": {"uniform_bucket_level_access": false, "public_principals": ["allUsers"]}
+    },
+    {
+      "type": "gcp.storage.bucket",
+      "id": "acme-demo-backups",
+      "name": "acme-demo-backups",
+      "attributes": {"uniform_bucket_level_access": true, "public_principals": []}
+    },
+    {
+      "type": "gcp.compute.firewall",
+      "id": "allow-ssh-anywhere",
+      "name": "allow-ssh-anywhere",
+      "attributes": {
+        "direction": "INGRESS",
+        "disabled": false,
+        "ingress": [{"protocol": "tcp", "from_port": 22, "to_port": 22, "cidr": "0.0.0.0/0"}]
+      }
+    },
+    {
+      "type": "gcp.compute.firewall",
+      "id": "allow-internal",
+      "name": "allow-internal",
+      "attributes": {
+        "direction": "INGRESS",
+        "disabled": false,
+        "ingress": [{"protocol": "tcp", "from_port": 0, "to_port": 65535, "cidr": "10.128.0.0/9"}]
+      }
+    }
+  ]
+}

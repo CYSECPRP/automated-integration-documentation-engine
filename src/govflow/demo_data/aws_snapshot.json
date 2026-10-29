@@ -1,0 +1,63 @@
+{
+  "format": "govflow-snapshot/v1",
+  "provider": "aws",
+  "scope": "111122223333",
+  "collected_at": "2026-10-20T09:00:00Z",
+  "resources": [
+    {
+      "type": "aws.s3.bucket",
+      "id": "acme-public-assets",
+      "name": "acme-public-assets",
+      "attributes": {
+        "public_access_block": {
+          "BlockPublicAcls": false,
+          "IgnorePublicAcls": false,
+          "BlockPublicPolicy": false,
+          "RestrictPublicBuckets": false
+        },
+        "versioning": {"Status": "Suspended"}
+      }
+    },
+    {
+      "type": "aws.s3.bucket",
+      "id": "acme-audit-logs",
+      "name": "acme-audit-logs",
+      "attributes": {
+        "public_access_block": {
+          "BlockPublicAcls": true,
+          "IgnorePublicAcls": true,
+          "BlockPublicPolicy": true,
+          "RestrictPublicBuckets": true
+        },
+        "versioning": {"Status": "Enabled"}
+      }
+    },
+    {
+      "type": "aws.ec2.security_group",
+      "id": "sg-0a1b2c3d4e5f60001",
+      "name": "bastion-sg",
+      "attributes": {
+        "ingress": [
+          {"protocol": "tcp", "from_port": 22, "to_port": 22, "cidr": "0.0.0.0/0"}
+        ]
+      }
+    },
+    {
+      "type": "aws.ec2.security_group",
+      "id": "sg-0a1b2c3d4e5f60002",
+      "name": "web-sg",
+      "attributes": {
+        "ingress": [
+          {"protocol": "tcp", "from_port": 443, "to_port": 443, "cidr": "0.0.0.0/0"},
+          {"protocol": "tcp", "from_port": 22, "to_port": 22, "cidr": "10.0.0.0/8"}
+        ]
+      }
+    },
+    {
+      "type": "aws.iam.account",
+      "id": "account-summary",
+      "name": "AWS account 111122223333",
+      "attributes": {"AccountMFAEnabled": 0, "AccountAccessKeysPresent": 1}
+    }
+  ]
+}

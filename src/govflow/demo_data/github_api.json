@@ -1,0 +1,130 @@
+{
+  "GET /repos/acme-demo/payments-api": {
+    "status": 200,
+    "json": {
+      "full_name": "acme-demo/payments-api",
+      "html_url": "https://github.com/acme-demo/payments-api",
+      "private": false,
+      "visibility": "public",
+      "archived": false,
+      "default_branch": "main",
+      "license": null,
+      "permissions": {"admin": true, "maintain": true, "push": true, "triage": true, "pull": true},
+      "security_and_analysis": {
+        "secret_scanning": {"status": "disabled"},
+        "secret_scanning_push_protection": {"status": "disabled"},
+        "dependabot_security_updates": {"status": "disabled"}
+      }
+    }
+  },
+  "GET /repos/acme-demo/payments-api/git/trees/main": {
+    "status": 200,
+    "json": {
+      "truncated": false,
+      "tree": [
+        {"path": ".github", "type": "tree"},
+        {"path": ".github/workflows", "type": "tree"},
+        {"path": ".github/workflows/ci.yml", "type": "blob"},
+        {"path": "README.md", "type": "blob"},
+        {"path": "requirements.txt", "type": "blob"},
+        {"path": "src", "type": "tree"},
+        {"path": "src/app.py", "type": "blob"}
+      ]
+    }
+  },
+  "GET /repos/acme-demo/payments-api/rules/branches/main": {"status": 200, "json": []},
+  "GET /repos/acme-demo/payments-api/branches/main": {
+    "status": 200,
+    "json": {"name": "main", "protected": false}
+  },
+  "GET /repos/acme-demo/payments-api/contents/.github/workflows/ci.yml": {
+    "status": 200,
+    "file": "name: CI\non: [push, pull_request]\njobs:\n  test:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: \"3.12\"\n      - run: pip install -r requirements.txt && pytest\n"
+  },
+  "GET /repos/acme-demo/payments-api/vulnerability-alerts": {
+    "status": 404,
+    "json": {"message": "Vulnerability alerts are disabled."}
+  },
+  "GET /repos/acme-demo/payments-api/actions/permissions/workflow": {
+    "status": 200,
+    "json": {"default_workflow_permissions": "write", "can_approve_pull_request_reviews": true}
+  },
+
+  "GET /repos/acme-demo/docs-site": {
+    "status": 200,
+    "json": {
+      "full_name": "acme-demo/docs-site",
+      "html_url": "https://github.com/acme-demo/docs-site",
+      "private": false,
+      "visibility": "public",
+      "archived": false,
+      "default_branch": "main",
+      "license": {"key": "mit", "spdx_id": "MIT"},
+      "permissions": {"admin": false, "maintain": false, "push": false, "triage": false, "pull": true}
+    }
+  },
+  "GET /repos/acme-demo/docs-site/git/trees/main": {
+    "status": 200,
+    "json": {
+      "truncated": false,
+      "tree": [
+        {"path": ".github", "type": "tree"},
+        {"path": ".github/CODEOWNERS", "type": "blob"},
+        {"path": ".github/dependabot.yml", "type": "blob"},
+        {"path": ".github/workflows", "type": "tree"},
+        {"path": ".github/workflows/pages.yml", "type": "blob"},
+        {"path": "LICENSE", "type": "blob"},
+        {"path": "README.md", "type": "blob"},
+        {"path": "SECURITY.md", "type": "blob"},
+        {"path": "public", "type": "tree"},
+        {"path": "public/index.html", "type": "blob"}
+      ]
+    }
+  },
+  "GET /repos/acme-demo/docs-site/rules/branches/main": {
+    "status": 200,
+    "json": [
+      {"type": "deletion", "ruleset_id": 4101},
+      {"type": "non_fast_forward", "ruleset_id": 4101},
+      {"type": "pull_request", "ruleset_id": 4101, "parameters": {"required_approving_review_count": 1}}
+    ]
+  },
+  "GET /repos/acme-demo/docs-site/branches/main": {
+    "status": 200,
+    "json": {"name": "main", "protected": true}
+  },
+  "GET /repos/acme-demo/docs-site/contents/.github/workflows/pages.yml": {
+    "status": 200,
+    "file": "name: Pages\non:\n  push:\n    branches: [main]\npermissions:\n  contents: read\n  pages: write\n  id-token: write\njobs:\n  deploy:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1\n      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0\n        with:\n          path: public\n      - uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1\n"
+  },
+
+  "GET /repos/acme-demo/legacy-tools": {
+    "status": 200,
+    "json": {
+      "full_name": "acme-demo/legacy-tools",
+      "html_url": "https://github.com/acme-demo/legacy-tools",
+      "private": false,
+      "visibility": "public",
+      "archived": false,
+      "default_branch": "main",
+      "license": null,
+      "permissions": {"admin": false, "maintain": false, "push": false, "triage": false, "pull": true}
+    }
+  },
+  "GET /repos/acme-demo/legacy-tools/git/trees/main": {
+    "status": 200,
+    "json": {
+      "truncated": false,
+      "tree": [
+        {"path": "README.md", "type": "blob"},
+        {"path": "tools", "type": "tree"},
+        {"path": "tools/rotate-keys.sh", "type": "blob"}
+      ]
+    }
+  },
+  "GET /repos/acme-demo/legacy-tools/rules/branches/main": {"status": 200, "json": []},
+  "GET /repos/acme-demo/legacy-tools/branches/main": {
+    "status": 200,
+    "json": {"name": "main", "protected": false}
+  }
+}
