@@ -1,0 +1,23 @@
+{
+  "actor": "github-actions[bot]",
+  "audit_genesis": "0000000000000000000000000000000000000000000000000000000000000000",
+  "collection_errors": [],
+  "config_digest": "2d7dfe81fb8b78e0e90e12d8d058b337d3fe3673aa5503efdda9ccb2072ff212",
+  "counts": {
+    "fail": 2,
+    "not_assessed": 6,
+    "pass": 12
+  },
+  "engine_version": "0.1.0",
+  "finished_at": "2026-10-29T15:00:26.744517Z",
+  "name": "CYSECPRP public repositories",
+  "plan_digest": "cbfdbd9e36fbc788f2a551112ec39ac5781847329ad29adcdef7675be31d55da",
+  "policy_count": 17,
+  "resource_count": 2,
+  "run_id": "20261029T150023Z-3e97ee",
+  "started_at": "2026-10-29T15:00:23.737239Z",
+  "targets": [
+    "github:CYSECPRP/automated-integration-documentation-engine",
+    "github:CYSECPRP/cysecprp.github.io"
+  ]
+}

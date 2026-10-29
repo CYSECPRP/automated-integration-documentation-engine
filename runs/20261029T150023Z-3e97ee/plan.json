@@ -1,0 +1,20 @@
+{
+  "actions": [
+    {
+      "action": "github.add_file",
+      "allowed": false,
+      "blocked_reason": "target 'github:CYSECPRP/cysecprp.github.io' is not in governance.allowed_targets",
+      "id": "A1",
+      "params": {
+        "path": ".github/CODEOWNERS",
+        "template": "codeowners"
+      },
+      "policy_id": "GH-004",
+      "summary": "Remediate GH-004 (Code owners are defined) on CYSECPRP/cysecprp.github.io",
+      "target": "github:CYSECPRP/cysecprp.github.io"
+    }
+  ],
+  "created_at": "2026-10-29T15:00:26.744355Z",
+  "digest": "cbfdbd9e36fbc788f2a551112ec39ac5781847329ad29adcdef7675be31d55da",
+  "run_id": "20261029T150023Z-3e97ee"
+}
