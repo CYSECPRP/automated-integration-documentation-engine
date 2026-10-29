@@ -1,0 +1,9 @@
+# Approval gate canary: $run_id
+
+govflow added this file to prove the governed change path end to end:
+
+1. A run planned this change and recorded the plan digest in its hash-chained audit log.
+2. A maintainer approved the `remediation` environment in GitHub Actions.
+3. govflow checked that approval against the plan digest before opening this pull request.
+
+Change record: `$change_id`
