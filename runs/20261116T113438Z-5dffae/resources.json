@@ -1,0 +1,89 @@
+[
+  {
+    "attributes": {
+      "archived": false,
+      "branch_protection": {
+        "protected": false,
+        "rules": []
+      },
+      "default_branch": "main",
+      "empty": false,
+      "files": {
+        "codeowners": true,
+        "dependabot_config": true,
+        "readme": true,
+        "security_policy": true
+      },
+      "full_name": "CYSECPRP/automated-integration-documentation-engine",
+      "license": "MIT",
+      "visibility": "public",
+      "workflows": {
+        "count": 2,
+        "files": [
+          ".github/workflows/ci.yml",
+          ".github/workflows/govern.yml"
+        ],
+        "missing_permissions": [],
+        "missing_permissions_count": 0,
+        "unpinned_actions": [],
+        "unpinned_count": 0
+      }
+    },
+    "id": "github:CYSECPRP/automated-integration-documentation-engine",
+    "name": "CYSECPRP/automated-integration-documentation-engine",
+    "provider": "github",
+    "source": "github-api",
+    "type": "github.repository",
+    "unavailable": {
+      "actions": "needs admin access to the repository (token with Administration: read)",
+      "security_and_analysis": "needs admin access to the repository (token with Administration: read)",
+      "vulnerability_alerts": "needs admin access to the repository (token with Administration: read)"
+    },
+    "url": "https://github.com/CYSECPRP/automated-integration-documentation-engine"
+  },
+  {
+    "attributes": {
+      "archived": false,
+      "branch_protection": {
+        "protected": true,
+        "rules": [
+          "deletion",
+          "non_fast_forward"
+        ]
+      },
+      "default_branch": "main",
+      "empty": false,
+      "files": {
+        "codeowners": false,
+        "dependabot_config": true,
+        "readme": true,
+        "security_policy": true
+      },
+      "full_name": "CYSECPRP/cysecprp.github.io",
+      "license": "NOASSERTION",
+      "visibility": "public",
+      "workflows": {
+        "count": 2,
+        "files": [
+          ".github/workflows/ci.yml",
+          ".github/workflows/deploy.yml"
+        ],
+        "missing_permissions": [],
+        "missing_permissions_count": 0,
+        "unpinned_actions": [],
+        "unpinned_count": 0
+      }
+    },
+    "id": "github:CYSECPRP/cysecprp.github.io",
+    "name": "CYSECPRP/cysecprp.github.io",
+    "provider": "github",
+    "source": "github-api",
+    "type": "github.repository",
+    "unavailable": {
+      "actions": "needs admin access to the repository (token with Administration: read)",
+      "security_and_analysis": "needs admin access to the repository (token with Administration: read)",
+      "vulnerability_alerts": "needs admin access to the repository (token with Administration: read)"
+    },
+    "url": "https://github.com/CYSECPRP/cysecprp.github.io"
+  }
+]
