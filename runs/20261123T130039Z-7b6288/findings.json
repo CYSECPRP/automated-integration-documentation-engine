@@ -1,0 +1,269 @@
+[
+  {
+    "detail": "Not met: Default branch is protected against deletion and force pushes.",
+    "evidence": {
+      "branch_protection.protected": false,
+      "branch_protection.rules": []
+    },
+    "policy_id": "GH-001",
+    "policy_title": "Default branch is protected against deletion and force pushes",
+    "resource_id": "github:CYSECPRP/automated-integration-documentation-engine",
+    "resource_name": "CYSECPRP/automated-integration-documentation-engine",
+    "resource_type": "github.repository",
+    "severity": "high",
+    "status": "fail"
+  },
+  {
+    "detail": "Compliant.",
+    "evidence": {
+      "branch_protection.protected": true,
+      "branch_protection.rules": [
+        "deletion",
+        "non_fast_forward"
+      ]
+    },
+    "policy_id": "GH-001",
+    "policy_title": "Default branch is protected against deletion and force pushes",
+    "resource_id": "github:CYSECPRP/cysecprp.github.io",
+    "resource_name": "CYSECPRP/cysecprp.github.io",
+    "resource_type": "github.repository",
+    "severity": "high",
+    "status": "pass"
+  },
+  {
+    "detail": "Compliant.",
+    "evidence": {
+      "files.security_policy": true
+    },
+    "policy_id": "GH-002",
+    "policy_title": "Repository publishes a security policy",
+    "resource_id": "github:CYSECPRP/automated-integration-documentation-engine",
+    "resource_name": "CYSECPRP/automated-integration-documentation-engine",
+    "resource_type": "github.repository",
+    "severity": "medium",
+    "status": "pass"
+  },
+  {
+    "detail": "Compliant.",
+    "evidence": {
+      "files.security_policy": true
+    },
+    "policy_id": "GH-002",
+    "policy_title": "Repository publishes a security policy",
+    "resource_id": "github:CYSECPRP/cysecprp.github.io",
+    "resource_name": "CYSECPRP/cysecprp.github.io",
+    "resource_type": "github.repository",
+    "severity": "medium",
+    "status": "pass"
+  },
+  {
+    "detail": "Compliant.",
+    "evidence": {
+      "files.dependabot_config": true
+    },
+    "policy_id": "GH-003",
+    "policy_title": "Dependency updates are automated",
+    "resource_id": "github:CYSECPRP/automated-integration-documentation-engine",
+    "resource_name": "CYSECPRP/automated-integration-documentation-engine",
+    "resource_type": "github.repository",
+    "severity": "medium",
+    "status": "pass"
+  },
+  {
+    "detail": "Compliant.",
+    "evidence": {
+      "files.dependabot_config": true
+    },
+    "policy_id": "GH-003",
+    "policy_title": "Dependency updates are automated",
+    "resource_id": "github:CYSECPRP/cysecprp.github.io",
+    "resource_name": "CYSECPRP/cysecprp.github.io",
+    "resource_type": "github.repository",
+    "severity": "medium",
+    "status": "pass"
+  },
+  {
+    "detail": "Compliant.",
+    "evidence": {
+      "files.codeowners": true
+    },
+    "policy_id": "GH-004",
+    "policy_title": "Code owners are defined",
+    "resource_id": "github:CYSECPRP/automated-integration-documentation-engine",
+    "resource_name": "CYSECPRP/automated-integration-documentation-engine",
+    "resource_type": "github.repository",
+    "severity": "low",
+    "status": "pass"
+  },
+  {
+    "detail": "Not met: Code owners are defined.",
+    "evidence": {
+      "files.codeowners": false
+    },
+    "policy_id": "GH-004",
+    "policy_title": "Code owners are defined",
+    "resource_id": "github:CYSECPRP/cysecprp.github.io",
+    "resource_name": "CYSECPRP/cysecprp.github.io",
+    "resource_type": "github.repository",
+    "severity": "low",
+    "status": "fail"
+  },
+  {
+    "detail": "Compliant.",
+    "evidence": {
+      "license": "MIT"
+    },
+    "policy_id": "GH-005",
+    "policy_title": "Repository declares a license",
+    "resource_id": "github:CYSECPRP/automated-integration-documentation-engine",
+    "resource_name": "CYSECPRP/automated-integration-documentation-engine",
+    "resource_type": "github.repository",
+    "severity": "low",
+    "status": "pass"
+  },
+  {
+    "detail": "Compliant.",
+    "evidence": {
+      "license": "NOASSERTION"
+    },
+    "policy_id": "GH-005",
+    "policy_title": "Repository declares a license",
+    "resource_id": "github:CYSECPRP/cysecprp.github.io",
+    "resource_name": "CYSECPRP/cysecprp.github.io",
+    "resource_type": "github.repository",
+    "severity": "low",
+    "status": "pass"
+  },
+  {
+    "detail": "Compliant.",
+    "evidence": {
+      "workflows.unpinned_count": 0
+    },
+    "policy_id": "GH-006",
+    "policy_title": "Workflow actions are pinned to full commit SHAs",
+    "resource_id": "github:CYSECPRP/automated-integration-documentation-engine",
+    "resource_name": "CYSECPRP/automated-integration-documentation-engine",
+    "resource_type": "github.repository",
+    "severity": "high",
+    "status": "pass"
+  },
+  {
+    "detail": "Compliant.",
+    "evidence": {
+      "workflows.unpinned_count": 0
+    },
+    "policy_id": "GH-006",
+    "policy_title": "Workflow actions are pinned to full commit SHAs",
+    "resource_id": "github:CYSECPRP/cysecprp.github.io",
+    "resource_name": "CYSECPRP/cysecprp.github.io",
+    "resource_type": "github.repository",
+    "severity": "high",
+    "status": "pass"
+  },
+  {
+    "detail": "Compliant.",
+    "evidence": {
+      "workflows.missing_permissions_count": 0
+    },
+    "policy_id": "GH-007",
+    "policy_title": "Workflows declare least-privilege token permissions",
+    "resource_id": "github:CYSECPRP/automated-integration-documentation-engine",
+    "resource_name": "CYSECPRP/automated-integration-documentation-engine",
+    "resource_type": "github.repository",
+    "severity": "medium",
+    "status": "pass"
+  },
+  {
+    "detail": "Compliant.",
+    "evidence": {
+      "workflows.missing_permissions_count": 0
+    },
+    "policy_id": "GH-007",
+    "policy_title": "Workflows declare least-privilege token permissions",
+    "resource_id": "github:CYSECPRP/cysecprp.github.io",
+    "resource_name": "CYSECPRP/cysecprp.github.io",
+    "resource_type": "github.repository",
+    "severity": "medium",
+    "status": "pass"
+  },
+  {
+    "detail": "Not assessed: security_and_analysis.secret_scanning needs admin access to the repository (token with Administration: read); security_and_analysis.secret_scanning_push_protection needs admin access to the repository (token with Administration: read).",
+    "evidence": {
+      "security_and_analysis.secret_scanning": "unavailable: needs admin access to the repository (token with Administration: read)",
+      "security_and_analysis.secret_scanning_push_protection": "unavailable: needs admin access to the repository (token with Administration: read)"
+    },
+    "policy_id": "GH-008",
+    "policy_title": "Secret scanning and push protection are enabled",
+    "resource_id": "github:CYSECPRP/automated-integration-documentation-engine",
+    "resource_name": "CYSECPRP/automated-integration-documentation-engine",
+    "resource_type": "github.repository",
+    "severity": "high",
+    "status": "not_assessed"
+  },
+  {
+    "detail": "Not assessed: security_and_analysis.secret_scanning needs admin access to the repository (token with Administration: read); security_and_analysis.secret_scanning_push_protection needs admin access to the repository (token with Administration: read).",
+    "evidence": {
+      "security_and_analysis.secret_scanning": "unavailable: needs admin access to the repository (token with Administration: read)",
+      "security_and_analysis.secret_scanning_push_protection": "unavailable: needs admin access to the repository (token with Administration: read)"
+    },
+    "policy_id": "GH-008",
+    "policy_title": "Secret scanning and push protection are enabled",
+    "resource_id": "github:CYSECPRP/cysecprp.github.io",
+    "resource_name": "CYSECPRP/cysecprp.github.io",
+    "resource_type": "github.repository",
+    "severity": "high",
+    "status": "not_assessed"
+  },
+  {
+    "detail": "Not assessed: vulnerability_alerts needs admin access to the repository (token with Administration: read).",
+    "evidence": {
+      "vulnerability_alerts": "unavailable: needs admin access to the repository (token with Administration: read)"
+    },
+    "policy_id": "GH-009",
+    "policy_title": "Dependabot vulnerability alerts are enabled",
+    "resource_id": "github:CYSECPRP/automated-integration-documentation-engine",
+    "resource_name": "CYSECPRP/automated-integration-documentation-engine",
+    "resource_type": "github.repository",
+    "severity": "high",
+    "status": "not_assessed"
+  },
+  {
+    "detail": "Not assessed: vulnerability_alerts needs admin access to the repository (token with Administration: read).",
+    "evidence": {
+      "vulnerability_alerts": "unavailable: needs admin access to the repository (token with Administration: read)"
+    },
+    "policy_id": "GH-009",
+    "policy_title": "Dependabot vulnerability alerts are enabled",
+    "resource_id": "github:CYSECPRP/cysecprp.github.io",
+    "resource_name": "CYSECPRP/cysecprp.github.io",
+    "resource_type": "github.repository",
+    "severity": "high",
+    "status": "not_assessed"
+  },
+  {
+    "detail": "Not assessed: actions.default_workflow_permissions needs admin access to the repository (token with Administration: read).",
+    "evidence": {
+      "actions.default_workflow_permissions": "unavailable: needs admin access to the repository (token with Administration: read)"
+    },
+    "policy_id": "GH-010",
+    "policy_title": "Default GitHub Actions token is read-only",
+    "resource_id": "github:CYSECPRP/automated-integration-documentation-engine",
+    "resource_name": "CYSECPRP/automated-integration-documentation-engine",
+    "resource_type": "github.repository",
+    "severity": "medium",
+    "status": "not_assessed"
+  },
+  {
+    "detail": "Not assessed: actions.default_workflow_permissions needs admin access to the repository (token with Administration: read).",
+    "evidence": {
+      "actions.default_workflow_permissions": "unavailable: needs admin access to the repository (token with Administration: read)"
+    },
+    "policy_id": "GH-010",
+    "policy_title": "Default GitHub Actions token is read-only",
+    "resource_id": "github:CYSECPRP/cysecprp.github.io",
+    "resource_name": "CYSECPRP/cysecprp.github.io",
+    "resource_type": "github.repository",
+    "severity": "medium",
+    "status": "not_assessed"
+  }
+]
